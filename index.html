@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="description" content="IPTV Web Player - M3U/M3U8 و Xtream Codes">
+  <title>IPTV Web Player</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">▶</div>
+      <div><b>IPTV</b><span>Web Player</span></div>
+    </div>
+
+    <div class="net-card" id="netCard">
+      <div class="net-icon">◉</div>
+      <div>
+        <strong id="netTitle">جارٍ فحص الإنترنت...</strong>
+        <small id="netText">يتم اختبار الاتصال من داخل الصفحة</small>
+      </div>
+      <span class="net-dot" id="netDot"></span>
+    </div>
+
+    <div class="speed-card">
+      <div class="wifi">⌁</div>
+      <div><b>الاتصال</b><strong id="speedText">--</strong></div>
+    </div>
+
+    <div class="clock">
+      <strong id="clock">--:--</strong>
+      <small id="date">----</small>
+    </div>
+
+    <button class="icon-btn" id="settingsBtn" title="الإعدادات">⚙</button>
+    <button class="icon-btn" id="helpBtn" title="المساعدة">?</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <button class="nav active" data-section="home">⌂ <span>الرئيسية</span></button>
+        <button class="nav" data-filter="TV">▣ <span>قنوات التلفزيون</span></button>
+        <button class="nav" data-filter="أفلام">▤ <span>قنوات الأفلام</span></button>
+        <button class="nav" data-filter="رياضة">🏆 <span>قنوات الرياضة</span></button>
+        <button class="nav" data-filter="أطفال">● <span>قنوات الأطفال</span></button>
+        <button class="nav" data-filter="أخبار">▥ <span>قنوات الأخبار</span></button>
+        <button class="nav" data-filter="دينية">◆ <span>قنوات دينية</span></button>
+        <button class="nav" data-filter="عالمية">◉ <span>قنوات عالمية</span></button>
+        <button class="nav" id="m3uBtn">↗ <span>قائمة التشغيل (M3U)</span></button>
+        <button class="nav" id="xtreamBtn">☷ <span>إعدادات Xtream</span></button>
+        <button class="nav" id="favBtn">♥ <span>المفضلة</span></button>
+        <button class="nav" id="searchBtn">⌕ <span>البحث</span></button>
+        <button class="nav" id="aboutBtn">ⓘ <span>حول</span></button>
+      </nav>
+
+      <div class="compat">
+        <div class="globe">◎</div>
+        <div><b>يعمل على:</b><br>M3U / M3U8<br>Xtream Codes</div>
+        <span class="check">✓</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="player-card">
+        <div class="video-wrap">
+          <video id="video" controls playsinline preload="metadata"></video>
+          <div class="video-empty" id="videoEmpty">
+            <div class="play-big">▶</div>
+            <h2>اختر قناة للبدء</h2>
+            <p>يمكنك إضافة M3U/M3U8 أو بيانات Xtream Codes من القائمة.</p>
+          </div>
+          <div class="live-badge">LIVE</div>
+        </div>
+
+        <div class="channel-info">
+          <div class="channel-logo" id="currentLogo">TV</div>
+          <div class="channel-meta">
+            <h2 id="currentName">لم يتم اختيار قناة</h2>
+            <span id="currentCategory">—</span>
+            <p id="currentUrl">أضف قائمة تشغيل ثم اختر قناة.</p>
+          </div>
+          <button class="round" id="favoriteCurrent" title="إضافة للمفضلة">♡</button>
+        </div>
+
+        <div class="quick-actions">
+          <button id="qualityBtn">▣<span>الجودة</span></button>
+          <button id="infoBtn">▤<span>معلومات القناة</span></button>
+          <button id="settingsQuick">⚙<span>إعدادات</span></button>
+          <button id="fullscreenBtn">⛶<span>ملء الشاشة</span></button>
+        </div>
+      </section>
+
+      <section class="list-card">
+        <div class="list-head">
+          <div>
+            <h2 id="listTitle">القنوات</h2>
+            <small id="count">0 قناة</small>
+          </div>
+          <div class="searchbox">
+            <span>⌕</span><input id="channelSearch" placeholder="ابحث عن قناة..." autocomplete="off">
+          </div>
+          <button class="small-btn" id="sortBtn">ترتيب</button>
+        </div>
+
+        <div class="chips">
+          <button class="chip active" data-cat="الكل">الكل</button>
+          <button class="chip" data-cat="رياضة">رياضة</button>
+          <button class="chip" data-cat="أفلام">أفلام</button>
+          <button class="chip" data-cat="أخبار">أخبار</button>
+          <button class="chip" data-cat="أطفال">أطفال</button>
+          <button class="chip" data-cat="عامة">عامة</button>
+        </div>
+
+        <div id="channels" class="channels"></div>
+        <div id="empty" class="empty">
+          <div>☷</div>
+          <h3>لا توجد قنوات بعد</h3>
+          <p>ابدأ بتحميل M3U أو أدخل بيانات Xtream Codes.</p>
+          <div class="empty-actions">
+            <button class="primary" id="emptyM3U">إضافة M3U</button>
+            <button id="emptyXtream">إضافة Xtream</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <span>IPTV Web Player v2.0</span>
+    <span>يدعم الكمبيوتر ومتصفح PS4</span>
+    <span id="footerNet">● جاري فحص الإنترنت</span>
+  </footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal">×</button>
+    <h2 id="modalTitle">إعدادات</h2>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
